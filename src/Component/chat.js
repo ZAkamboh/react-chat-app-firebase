@@ -9,16 +9,23 @@ class Chat extends Component {
     this.state = {
       text: "",
       messages: [],
-      user: props.user
+      user: props.user,
+      sendUser: props.sendUser
     };
+    alert(this.state.user);
   }
   componentWillMount() {
     this.getMessages(this.state.user);
+    //console.log(this.state.user);
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps && nextProps.user) {
       this.getMessages(nextProps.user);
       this.setState({ user: nextProps.user });
+    }
+    if (nextProps && nextProps.sendUser) {
+      this.setState({ sendUser: nextProps.sendUser });
     }
   }
   onSubmit = event => {
@@ -34,7 +41,8 @@ class Chat extends Component {
       .ref("messages/")
       .push({
         text: message,
-        user: this.state.user
+        user: this.state.user,
+        sendUser: this.state.sendUser
       });
   };
 
@@ -46,11 +54,13 @@ class Chat extends Component {
     messagesDB.on("value", snapshot => {
       let newMessages = [];
       var value = snapshot.val();
+      //console.log(value.user);
       for (var keys in value) {
-        if (value[keys]["user"] === user) {
+        if (value[keys]["user"] === user || value[keys]["sendUser"] === user) {
           newMessages.push(value[keys]["text"]);
         }
       }
+      //console.log(newMessages);
       this.setState({ messages: newMessages });
     });
   };
@@ -77,6 +87,12 @@ class Chat extends Component {
           value={this.state.text}
           onKeyPress={this.onSubmit}
           style={{ width: "98vw", overflow: "hidden" }}
+          // disabled={
+          //   this.state.user === this.state.sendUser ||
+          //   this.state.sendUser === ""
+          //     ? true
+          //     : false
+          // }
         />
         <span ref={el => (this.bottomSpan = el)} />
       </div>

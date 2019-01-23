@@ -11,7 +11,8 @@ class Home extends Component {
     this.state = {
       // text: "",
       // messages: [],
-      user: "user1"
+      user: "user1",
+      sendUser: ""
     };
   }
   componentDidMount() {}
@@ -264,9 +265,24 @@ class Home extends Component {
                       </div>
                     </div>
                   </div>
+                  <div className="col-lg-6">
+                    <select
+                      onChange={event =>
+                        this.setState({ sendUser: event.target.value })
+                      }
+                      className="form-control"
+                    >
+                      <option value="user1">User1</option>
+                      <option value="user2">User2</option>
+                      <option value="user3">User3</option>
+                    </select>
+                  </div>
 
                   <div className="col-12 col-md-9 bg-white">
-                    <Chat user={this.state.user} />
+                    <Chat
+                      user={this.state.user}
+                      sendUser={this.state.sendUser}
+                    />
                   </div>
                 </div>
               </div>
