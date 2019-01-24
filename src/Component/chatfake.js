@@ -12,7 +12,6 @@ class Chat extends Component {
       user: props.user,
       sendUser: props.sendUser
     };
-  
   }
   componentWillMount() {
     this.getMessages(this.state.user);

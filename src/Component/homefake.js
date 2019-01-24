@@ -16,13 +16,9 @@ class Home extends Component {
     };
   }
   componentDidMount() {}
-  // handleChat = key => {
-  //   this.setState({ user: key });
-  // };
-  sendUserChat = secondkey => {
-    this.setState({ sendUser: secondkey });
+  handleChat = key => {
+    this.setState({ user: key });
   };
-
   render() {
     return (
       <div id="skypeChat" classNameName="bg-dark p-1">
@@ -131,16 +127,6 @@ class Home extends Component {
                               role="tabpanel"
                               aria-labelledby="list-recent-list"
                             >
-                              {/* <div className="col-lg-6">
-                                <select onChange={event => this.setState({
-                                      sendUser: event.target.value
-                                    })} className="form-control">
-                                  <option value="user1">User1</option>
-                                  <option value="user2">User2</option>
-                                  <option value="user3">User3</option>
-                                </select>
-                              </div> */}
-
                               <div className="list-group userList">
                                 <a href="#" className="list-group-item">
                                   <div className="userDP">
@@ -148,7 +134,7 @@ class Home extends Component {
                                     <div className="status status-online" />
                                   </div>
                                   <button
-                                    onClick={this.sendUserChat.bind(
+                                    onClick={this.handleChat.bind(
                                       this,
                                       "user1"
                                     )}
@@ -163,7 +149,7 @@ class Home extends Component {
                                     <div className="status status-online" />
                                   </div>
                                   <button
-                                    onClick={this.sendUserChat.bind(
+                                    onClick={this.handleChat.bind(
                                       this,
                                       "user2"
                                     )}
@@ -178,7 +164,7 @@ class Home extends Component {
                                     <div className="status status-offline" />
                                   </div>
                                   <button
-                                    onClick={this.sendUserChat.bind(
+                                    onClick={this.handleChat.bind(
                                       this,
                                       "user3"
                                     )}
@@ -282,9 +268,7 @@ class Home extends Component {
                   <div className="col-lg-6">
                     <select
                       onChange={event =>
-                        this.setState({
-                          user: event.target.value
-                        })
+                        this.setState({ sendUser: event.target.value })
                       }
                       className="form-control"
                     >
