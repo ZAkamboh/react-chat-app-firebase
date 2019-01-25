@@ -9,10 +9,11 @@ class Chat extends Component {
     this.state = {
       text: "",
       messages: [],
+      messages2: [],
+      messages3: [],
       user: props.user,
       sendUser: props.sendUser
     };
-  
   }
   componentWillMount() {
     this.getMessages(this.state.user);
@@ -52,23 +53,71 @@ class Chat extends Component {
       .ref("messages/")
       .limitToLast(500);
     messagesDB.on("value", snapshot => {
-      let newMessages = [];
+      let newMessagesuser1 = [];
+      let newMessagesuser2 = [];
+      let newMessagesuser3 = [];
       var value = snapshot.val();
       //console.log(value.user);
-      for (var keys in value) {
-        if (value[keys]["user"] === user || value[keys]["sendUser"] === user) {
-          newMessages.push(value[keys]["text"]);
+      if (user === "user1") {
+        for (var keys in value) {
+          if (
+            value[keys]["user"] === user ||
+            value[keys]["sendUser"] === user
+          ) {
+            newMessagesuser1.push(value[keys]["text"]);
+          }
+        }
+      }
+      if (user === "user2") {
+        for (var keys in value) {
+          if (
+            value[keys]["user"] === user ||
+            value[keys]["sendUser"] === user
+          ) {
+            newMessagesuser2.push(value[keys]["text"]);
+          }
+        }
+      }
+      if (user === "user3") {
+        for (var keys in value) {
+          if (
+            value[keys]["user"] === user ||
+            value[keys]["sendUser"] === user
+          ) {
+            newMessagesuser3.push(value[keys]["text"]);
+          }
         }
       }
       //console.log(newMessages);
-      this.setState({ messages: newMessages });
+      this.setState({
+        messages: newMessagesuser1,
+        messages2: newMessagesuser2,
+        messages3: newMessagesuser3
+      });
     });
   };
 
   renderMessages = () => {
-    return this.state.messages.map((message, index) => (
+    //console.log(this.state.messages);
+    return this.state.messages.map((message1, index) => (
       <ListItem key={index}>
-        <ListItemText style={{ wordBreak: "break-word" }} primary={message} />
+        <ListItemText style={{ wordBreak: "break-word" }} primary={message1} />
+      </ListItem>
+    ));
+  };
+  renderMessages2 = () => {
+    //console.log(this.state.messages);
+    return this.state.messages2.map((message2, index) => (
+      <ListItem key={index}>
+        <ListItemText style={{ wordBreak: "break-word" }} primary={message2} />
+      </ListItem>
+    ));
+  };
+  renderMessages3 = () => {
+    //console.log(this.state.messages);
+    return this.state.messages3.map((message3, index) => (
+      <ListItem key={index}>
+        <ListItemText style={{ wordBreak: "break-word" }} primary={message3} />
       </ListItem>
     ));
   };
@@ -77,6 +126,8 @@ class Chat extends Component {
     return (
       <div className="App">
         <List>{this.renderMessages()}</List>
+        <List>{this.renderMessages2()}</List>
+        <List>{this.renderMessages3()}</List>
         <TextField
           autoFocus={true}
           multiline={true}
