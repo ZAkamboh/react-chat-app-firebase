@@ -16,11 +16,14 @@ class Home extends Component {
     };
   }
   componentDidMount() {}
+
   // handleChat = key => {
   //   this.setState({ user: key });
   // };
   sendUserChat = secondkey => {
-    this.setState({ sendUser: secondkey });
+    this.setState({ sendUser: secondkey }, () => {
+      //alert(this.state.sendUser);
+    });
   };
 
   render() {
@@ -258,7 +261,7 @@ class Home extends Component {
                       <div className="col-5 col-md-9 col-xs-5">
                         <div className="chat-with-user-name">
                           <h3>
-                            Chat With: <span>jarrar Ahmed</span>
+                            Chat With: <span>{this.state.sendUser}</span>
                           </h3>
                         </div>
                       </div>

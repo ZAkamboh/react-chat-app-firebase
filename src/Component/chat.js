@@ -16,6 +16,7 @@ class Chat extends Component {
     };
   }
   componentWillMount() {
+    //alert(this.state.user);
     this.getMessages(this.state.user);
     //console.log(this.state.user);
   }
